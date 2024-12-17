@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
@@ -8,15 +8,234 @@
 		<title>Astro Basics</title>
 	</head>
 	<body>
+		<div>
 		<slot />
+	</div>
 	</body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
+	html
+	 {
+		 margin: 0; 
 		width: 100%;
 		height: 100%;
 	}
+
+	body {
+		@apply grid place-content-center;
+	}
+
+	body > div {
+		@aplly container;
+	}
+
+</style> -->
+
+---
+import { ClientRouter } from 'astro:transitions';
+
+import { Icon } from 'astro-icon/components'
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+
+const navLinks = [
+  { href: '/', text: 'Home' },
+  { href: '/about', text: 'About' },
+  { href: '/contact', text: 'Contact' },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<ClientRouter />
+	</head>
+	<body class="flex flex-col min-h-screen bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text">
+		<header class="bg-light-accent dark:bg-dark-accent shadow-md">
+			<nav class="container mx-auto px-6 py-4">
+				<div class="flex justify-between items-center">
+					<div class="flex items-center">
+						<a href="/" class="text-xl font-bold mr-4">
+							<img src="/logo.svg" alt="Logo" class="h-8 w-auto" />
+						</a>
+					</div>
+					<div class="hidden md:flex items-center space-x-6">
+						{navLinks.map((link) => (
+							<a
+								href={link.href}
+								class="text-light-text hover:text-light-hover dark:text-dark-text dark:hover:text-dark-hover transition-colors"
+							>
+								{link.text}
+							</a>
+						))}
+						<button id="theme-toggle" class="p-2 rounded-full bg-light-secondary dark:bg-dark-secondary text-light-bg dark:text-dark-bg ml-4">
+							<Icon name="mdi:theme-light-dark" class="w-5 h-5" />
+						</button>
+					</div>
+					<div class="md:hidden flex items-center">
+						<button
+							id="menu-toggle"
+							class="text-light-text hover:text-light-hover dark:text-dark-text dark:hover:text-dark-hover focus:outline-none mr-4"
+							aria-label="Toggle menu"
+						>
+							<svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+								<path
+									fill-rule="evenodd"
+									d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
+								/>
+							</svg>
+						</button>
+						<button id="theme-toggle-mobile" class="p-2 rounded-full bg-light-secondary dark:bg-dark-secondary text-light-bg dark:text-dark-bg">
+							<Icon name="mdi:theme-light-dark" class="w-5 h-5" />
+						</button>
+					</div>
+				</div>
+				<div id="mobile-menu" class="md:hidden mt-4 hidden px-2">
+					{navLinks.map((link) => (
+						<a
+							href={link.href}
+							class="block py-2 text-light-text hover:text-light-hover dark:text-dark-text dark:hover:text-dark-hover transition-colors"
+						>
+							{link.text}
+						</a>
+					))}
+				</div>
+			</nav>
+		</header>
+		<main class="flex-grow">
+			<slot />
+		</main>
+		<footer class="bg-light-accent dark:bg-dark-accent">
+			<div class="container mx-auto px-4 py-8">
+				<div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+					<div class="text-center md:text-left">
+						<a href="/contact" class="text-light-text hover:text-light-hover dark:text-dark-text dark:hover:text-dark-hover transition-colors">Contact Us</a>
+					</div>
+					<div class="text-center">
+						<p>Working Hours: Mon-Fri, 9AM-5PM</p>
+					</div>
+					<div class="flex space-x-4">
+						<a href="https://twitter.com" class="text-light-text hover:text-light-hover dark:text-dark-text dark:hover:text-dark-hover transition-colors" aria-label="Twitter">
+							<Icon name="mdi:twitter" class="w-6 h-6" />
+						</a>
+						<a href="https://facebook.com" class="text-light-text hover:text-light-hover dark:text-dark-text dark:hover:text-dark-hover transition-colors" aria-label="Facebook">
+							<Icon name="mdi:facebook" class="w-6 h-6" />
+						</a>
+						<a href="https://instagram.com" class="text-light-text hover:text-light-hover dark:text-dark-text dark:hover:text-dark-hover transition-colors" aria-label="Instagram">
+							<Icon name="mdi:instagram" class="w-6 h-6" />
+						</a>
+					</div>
+				</div>
+				<div class="mt-4 text-center">
+					<p>&copy; {currentYear} Your Company Name. All rights reserved.</p>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>
+
+<script>
+	function setTheme(theme: string) {
+		if (theme === 'dark') {
+			document.documentElement.classList.add('dark');
+		} else {
+			document.documentElement.classList.remove('dark');
+		}
+		localStorage.setItem('theme', theme);
+	}
+
+	function toggleTheme() {
+		const currentTheme = localStorage.getItem('theme') || 'dark';
+		const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+		setTheme(newTheme);
+	}
+
+	document.addEventListener('astro:page-load', () => {
+		const storedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+		setTheme(storedTheme);
+
+		const menuToggle = document.getElementById('menu-toggle');
+		const mobileMenu = document.getElementById('mobile-menu');
+		const themeToggle = document.getElementById('theme-toggle');
+		const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+
+		if (menuToggle && mobileMenu) {
+			menuToggle.addEventListener('click', () => {
+				mobileMenu.classList.toggle('hidden');
+			});
+		}
+
+		if (themeToggle) {
+			themeToggle.addEventListener('click', toggleTheme);
+		}
+
+		if (themeToggleMobile) {
+			themeToggleMobile.addEventListener('click', toggleTheme);
+		}
+	});
+</script>
+
+<style is:global>
+	@tailwind base;
+	@tailwind components;
+	@tailwind utilities;
+
+	:root {
+		--color-1: #fffefe;
+		--color-2: #c5cbec;
+		--color-3: #2b2e4a;
+		--color-4: #1c1c1d;
+
+		--light-bg: var(--color-1);
+		--light-text: var(--color-4);
+		--light-accent: var(--color-2);
+		--light-secondary: var(--color-3);
+		--light-hover: var(--color-3);
+		/* --light-hover: #5a4a6a;  */
+
+		--dark-bg: var(--color-4);
+		--dark-text: var(--color-1);
+		--dark-accent: var(--color-3);
+		--dark-secondary: var(--color-2);
+		--dark-hover: var(--color-2);
+	}
+
+	.text-gradient {
+		@apply bg-clip-text text-transparent bg-gradient-to-r from-light-secondary to-light-hover dark:from-dark-secondary dark:to-dark-hover;
+	}
+
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.animate-fadeInUp {
+		animation: fadeInUp 0.6s ease-out forwards;
+	}
 </style>
+
+
+
+
+
+
+
