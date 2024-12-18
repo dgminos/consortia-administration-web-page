@@ -1,7 +1,68 @@
----
+<!-- ---
 import Layout from "../layouts/Layout.astro"
 ---
 
 <Layout title="About">
     <p>About us</p>
-</Layout>
+</Layout> -->
+
+---
+import Layout from '../layouts/Layout.astro';
+import { Picture } from 'astro:assets';
+import manCalculatorHouse from '../assets/img/manCalculatorHouse.webp';
+import buildingBalcony from '../assets/img/buildingBalcony.webp';
+---
+
+<Layout title="Sobre nosotros">
+    <div class="flex flex-col items-center animate-fadeIn">
+      <div class="relative w-full h-[30vh] md:h-[40vh] overflow-hidden mb-16">
+        <Picture 
+        src={buildingBalcony} 
+        formats={['avif', 'webp']}
+        alt="Edificio con balcones"
+        width={1920}
+        height={1080}
+        class="w-full h-full object-cover object-center brightness-75"
+      />
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/70"></div>
+        <h1 class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-3xl md:text-4xl font-bold text-white px-6 py-3 rounded-lg shadow-lg text-center">
+          Administración
+        </h1>
+      </div>
+      
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center space-y-12 max-w-6xl mb-24">
+        <div class="w-full flex flex-col md:flex-row items-center md:items-start gap-8">
+          <div class="w-full md:w-1/3 flex justify-center">
+            <Picture
+            src={manCalculatorHouse}
+            formats={['avif', 'webp']}
+            alt="Un hombre de traje sosteniendo una casa de juguete, usando una calculadora sobre un escritorio con una libreta y lapiceras"
+            width={300}
+            height={300}
+            class="rounded-lg shadow-md"
+          />
+          </div>
+          <article class="w-full md:w-2/3 space-y-4 prose lg:prose-xl">
+            <p class="text-lg font-bold text-light-text dark:text-dark-text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+            <p class="text-light-text dark:text-dark-text">
+              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+        </article>
+        </div>
+      </div>
+    </div>
+  </Layout>
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+</style>
+
