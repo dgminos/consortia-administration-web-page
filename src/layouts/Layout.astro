@@ -1,36 +1,3 @@
-<!-- <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<div>
-		<slot />
-	</div>
-	</body>
-</html>
-
-<style>
-	html
-	 {
-		 margin: 0; 
-		width: 100%;
-		height: 100%;
-	}
-
-	body {
-		@apply grid place-content-center;
-	}
-
-	body > div {
-		@aplly container;
-	}
-
-</style> -->
 
 ---
 import { ClientRouter } from 'astro:transitions';
@@ -65,14 +32,14 @@ const currentYear = new Date().getFullYear();
 	</head>
 	<body class="flex flex-col min-h-screen bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text">
 		<header class="bg-light-accent dark:bg-dark-accent shadow-md">
-			<nav class="container mx-auto px-6 py-4">
+			<nav class="container mx-auto px-4 sm:px-6 py-4">
 				<div class="flex justify-between items-center">
 					<div class="flex items-center">
 						<a href="/" class="text-xl font-bold mr-4">
 							<img src="/logo.svg" alt="Logo" class="h-8 w-auto" />
 						</a>
 					</div>
-					<div class="hidden md:flex items-center space-x-6">
+					<div class="hidden md:flex items-center space-x-4 lg:space-x-6">
 						{navLinks.map((link) => (
 							<a
 								href={link.href}
@@ -120,27 +87,43 @@ const currentYear = new Date().getFullYear();
 		</main>
 		<footer class="bg-light-accent dark:bg-dark-accent">
 			<div class="container mx-auto px-4 py-8">
-				<div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-					<div class="text-center md:text-left">
-						<a href="/contact" class="text-light-text hover:text-light-hover dark:text-dark-text dark:hover:text-dark-hover transition-colors">Contact Us</a>
+				<div class="flex flex-col items-center md:flex-row md:justify-around md:items-start space-y-6 md:space-y-0 md:space-x-4">
+					<div class="flex flex-col items-center md:items-start">
+						<div class="flex items-center mb-2">
+							<Icon name="mdi:clock" class="w-6 h-6 text-light-text dark:text-dark-text" />
+							<p class="text-light-text dark:text-dark-text font-semibold ml-2">Horario de atención:</p>
+						</div>
+						<p class="text-light-text dark:text-dark-text text-center md:text-left md:ml-8">Lunes a viernes, 9:00-18:00</p>
 					</div>
-					<div class="text-center">
-						<p>Working Hours: Mon-Fri, 9AM-5PM</p>
+					<div class="flex flex-col items-center md:items-start">
+						<div class="flex items-center mb-2">
+							<Icon name="mdi:email" class="w-6 h-6 text-light-text dark:text-dark-text" />
+							<p class="text-light-text dark:text-dark-text font-semibold ml-2">Correo electrónico:</p>
+						</div>
+						<a href="mailto:admin@gmail.com" class="text-light-text hover:text-light-hover dark:text-dark-text dark:hover:text-dark-hover transition-colors text-center md:text-left md:ml-8">
+							admin@gmail.com
+						</a>
 					</div>
-					<div class="flex space-x-4">
-						<a href="https://twitter.com" class="text-light-text hover:text-light-hover dark:text-dark-text dark:hover:text-dark-hover transition-colors" aria-label="Twitter">
-							<Icon name="mdi:twitter" class="w-6 h-6" />
-						</a>
-						<a href="https://facebook.com" class="text-light-text hover:text-light-hover dark:text-dark-text dark:hover:text-dark-hover transition-colors" aria-label="Facebook">
-							<Icon name="mdi:facebook" class="w-6 h-6" />
-						</a>
-						<a href="https://instagram.com" class="text-light-text hover:text-light-hover dark:text-dark-text dark:hover:text-dark-hover transition-colors" aria-label="Instagram">
-							<Icon name="mdi:instagram" class="w-6 h-6" />
-						</a>
+					<div class="flex flex-col items-center md:items-start">
+						<div class="flex items-center mb-2">
+							<Icon name="mdi:earth" class="w-6 h-6 text-light-text dark:text-dark-text" />
+							<p class="text-light-text dark:text-dark-text font-semibold ml-2">Redes sociales:</p>
+						</div>
+						<div class="flex space-x-3 md:ml-8">
+							<a href="https://twitter.com" class="text-light-text hover:text-light-hover dark:text-dark-text dark:hover:text-dark-hover transition-colors" aria-label="Twitter">
+								<Icon name="mdi:twitter" class="w-6 h-6" />
+							</a>
+							<a href="https://facebook.com" class="text-light-text hover:text-light-hover dark:text-dark-text dark:hover:text-dark-hover transition-colors" aria-label="Facebook">
+								<Icon name="mdi:facebook" class="w-6 h-6" />
+							</a>
+							<a href="https://instagram.com" class="text-light-text hover:text-light-hover dark:text-dark-text dark:hover:text-dark-hover transition-colors" aria-label="Instagram">
+								<Icon name="mdi:instagram" class="w-6 h-6" />
+							</a>
+						</div>
 					</div>
 				</div>
-				<div class="mt-4 text-center">
-					<p>&copy; {currentYear} Your Company Name. All rights reserved.</p>
+				<div class="mt-8 text-center">
+					<p class="text-light-text dark:text-dark-text">&copy; {currentYear} Administración. Todos los derechos reservados.</p>
 				</div>
 			</div>
 		</footer>
