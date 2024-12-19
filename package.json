@@ -13,6 +13,7 @@
     "@iconify-json/mdi": "1.2.1",
     "astro": "5.0.5",
     "astro-icon": "1.1.4",
+    "nodemailer": "6.9.16",
     "tailwindcss": "3.4.16"
   },
   "devDependencies": {

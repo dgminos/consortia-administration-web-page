@@ -1,0 +1,111 @@
+<!-- ---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  image: ImageMetadata;
+  imageAlt: string;
+}
+
+const { title, subtitle, image, imageAlt } = Astro.props;
+---
+
+<div class="relative mb-12">
+  <div class="absolute inset-0 overflow-hidden">
+    <Picture
+      src={image}
+      alt={imageAlt}
+      width={1920}
+      height={1080}
+      class="w-full h-full object-cover object-center"
+    />
+    <div class="absolute inset-0 bg-dark-bg/70"></div>
+  </div>
+  <div class="relative py-32 px-4 max-w-6xl mx-auto">
+    <h1 class="text-4xl md:text-6xl font-bold text-center mb-8 text-white opacity-0 animate-fadeInUp" style="animation-delay: 0.2s;">
+      <Fragment set:html={title} />
+    </h1>
+    {subtitle && (
+      <p class="text-lg md:text-2xl text-white text-center mb-12 opacity-0 animate-fadeInUp" style="animation-delay: 0.4s;">
+        <Fragment set:html={subtitle} />
+      </p>
+    )}
+  </div>
+</div>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeInUp {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+</style> -->
+
+
+
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+    title: string;
+    subtitle?: string;
+    image: ImageMetadata;
+    imageAlt: string;
+    darkOverlay?: boolean;
+  }
+  
+  const { title, subtitle, image, imageAlt, darkOverlay = false } = Astro.props;
+  ---
+  
+  <div class="relative mb-12 w-full">
+    <div class="absolute inset-0">
+      <Picture
+        src={image}
+        alt={imageAlt}
+        width={1920}
+        height={1080}
+        class={`w-full h-full object-cover object-center ${darkOverlay ? 'brightness-50' : ''}`}
+      />
+      <div class={`absolute inset-0 ${darkOverlay ? 'bg-dark-bg/80' : 'bg-dark-bg/70'}`}></div>
+    </div>
+    <div class="relative py-32 px-4 max-w-6xl mx-auto">
+      <h1 class="text-4xl md:text-6xl font-bold text-center mb-8 text-white opacity-0 animate-fadeInUp" style="animation-delay: 0.2s;">
+        <Fragment set:html={title} />
+      </h1>
+      {subtitle && (
+        <p class="text-lg md:text-2xl text-white text-center mb-12 opacity-0 animate-fadeInUp" style="animation-delay: 0.4s;">
+          <Fragment set:html={subtitle} />
+        </p>
+      )}
+    </div>
+  </div>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeInUp {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+</style>
+
